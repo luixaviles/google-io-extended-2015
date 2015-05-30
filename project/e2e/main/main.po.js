@@ -1,14 +1,13 @@
-/**
- * This file uses the Page Object pattern to define the main page for tests
- * https://docs.google.com/presentation/d/1B6manhG0zEXkC-H-tPo2vwU06JhL8w9-XCF9oehXzAQ
- */
-
 'use strict';
 
-var MainPage = function() {
-  this.heroEl = element(by.css('.hero-unit'));
-  this.h1El = this.heroEl.element(by.css('h1'));
-  this.imgEl = this.heroEl.element(by.css('img'));
+var MainPage = function () {
+    this.users = element.all(by.repeater('user in users'));
+    this.addNewButton = element(by.css('[ng-click="addNew()"]'));
+
+    this.username = element(by.model('user.name'));
+    this.age = element(by.model('user.age'));
+    this.city = element(by.model('user.city'));
+    this.saveButton = element(by.css('[ng-click="save()"]'));
 };
 
 module.exports = new MainPage();

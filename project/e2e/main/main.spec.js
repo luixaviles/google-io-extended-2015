@@ -1,16 +1,21 @@
 'use strict';
 
-describe('Main View', function() {
-  var page;
+describe('Users page', function () {
+    var page;
 
-  beforeEach(function() {
-    browser.get('/');
-    page = require('./main.po');
-  });
+    beforeEach(function () {
+        browser.get('/');
+        page = require('./main.po');
+    });
 
-  it('should include jumbotron with correct data', function() {
-    expect(page.h1El.getText()).toBe('\'Allo, \'Allo!');
-    expect(page.imgEl.getAttribute('src')).toMatch(/assets\/images\/yeoman.png$/);
-    expect(page.imgEl.getAttribute('alt')).toBe('I\'m Yeoman');
-  });
+    it('should add a new user', function () {
+        expect(page.users.count()).toBe(3);
+        page.addNewButton.click();
+
+        page.username.sendKeys('Angular');
+        page.age.sendKeys('20');
+        page.city.sendKeys('Cochabamba');
+        page.saveButton.click();
+        expect(page.users.count()).toBe(4);
+    });
 });

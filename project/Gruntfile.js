@@ -440,6 +440,10 @@ module.exports = function (grunt) {
       }
     },
 
+      exec: {
+          update_webdriver: 'npm run update-webdriver'
+      },
+
     env: {
       test: {
         NODE_ENV: 'test'
@@ -542,6 +546,8 @@ module.exports = function (grunt) {
     ]);
   });
 
+  grunt.loadNpmTasks('grunt-exec');
+
   grunt.registerTask('server', function () {
     grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
     grunt.task.run(['serve']);
@@ -569,14 +575,7 @@ module.exports = function (grunt) {
 
     else if (target === 'e2e') {
       return grunt.task.run([
-        'clean:server',
-        'env:all',
-        'env:test',
-        'concurrent:test',
-        'injector',
-        'wiredep',
-        'autoprefixer',
-        'express:dev',
+        'exec:update_webdriver',
         'protractor'
       ]);
     }
